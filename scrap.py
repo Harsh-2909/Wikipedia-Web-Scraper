@@ -23,8 +23,10 @@ if soup.find("p").text.strip() == "Other reasons this message may be displayed:"
 page_title = soup.find("h1", class_="firstHeading").text
 print(f"\n{page_title}\n")
 
+#Making the text file to save the text data
 f = open(f"{page_title}.txt", "w", encoding="utf-8")
 f.write(f"---{page_title}---\n\n")
+
 #Topics to avoid
 exclude = ["See also", "References", "Sources", "Further reading", "External links"]
 
@@ -43,4 +45,4 @@ for info in soup.descendants:
         para = info.get_text()
         print(f"{para}") #Printing the paragraph
         f.write(f"{para}")
-f.close()
+f.close() #Closing the file
