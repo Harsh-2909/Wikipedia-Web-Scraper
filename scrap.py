@@ -10,7 +10,9 @@ if mo == None:
     print("Wrong URL entered. Make sure to enter a valid Wikipedia URL. Make sure to add https:// before the URL if you forgot.")
     exit()
 
-#Requesting the HTML and making the BeautifulSoup object
+print("Done")
+
+#dafessssss#Requesting the HTML and making the BeautifulSoup object
 req = requests.get(URL)
 soup = BeautifulSoup(req.text, "lxml")
 
