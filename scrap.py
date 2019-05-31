@@ -23,6 +23,8 @@ if soup.find("p").text.strip() == "Other reasons this message may be displayed:"
 page_title = soup.find("h1", class_="firstHeading").text
 print(f"\n{page_title}\n")
 
+f = open(f"{page_title}.txt", "w", encoding="utf-8")
+f.write(f"---{page_title}---\n\n")
 #Topics to avoid
 exclude = ["See also", "References", "Sources", "Further reading", "External links"]
 
@@ -34,8 +36,11 @@ for info in soup.descendants:
                 headline = info.get_text()
                 if headline not in exclude:
                     print(f"{headline}:\n") #Printing the heading
+                    f.write(f"\n{headline}:\n\n")
         except KeyError: #try except block to handle BS KeyError
             pass
     elif info.name == "p":
         para = info.get_text()
         print(f"{para}") #Printing the paragraph
+        f.write(f"{para}")
+f.close()
