@@ -5,13 +5,13 @@ import re
 #Taking the URL input and validating using Regex
 URL = input("Enter a valid Wikipedia URL:\n")
 urlRegex = re.compile(r"^https\:\/\/([\w\.]+)wikipedia.org\/wiki\/([\w]+\_?)+")
-mo = urlRegex.match(URL)
+mo = urlRegex.search(URL)
 if mo == None:
     print("Wrong URL entered. Make sure to enter a valid Wikipedia URL. Make sure to add https:// before the URL if you forgot.")
     exit()
 
 #Requesting the HTML and making the BeautifulSoup object
-req = requests.get(URL)
+req = requests.get(mo.group())
 soup = BeautifulSoup(req.text, "lxml")
 
 #Validating if the site has content
@@ -21,11 +21,11 @@ if soup.find("p").text.strip() == "Other reasons this message may be displayed:"
 
 #Retriving and printing the page title
 page_title = soup.find("h1", class_="firstHeading").text
-print(f"\n{page_title}\n")
+print(f"\n---{page_title}---\n")
 
 #Making the text file to save the text data
 f = open(f"{page_title}.txt", "w", encoding="utf-8")
-f.write(f"---{page_title}---\n\n")
+f.write(f"//{mo.group()}\n---{page_title}---\n\n")
 
 #Topics to avoid
 exclude = ["See also", "References", "Sources", "Further reading", "External links"]
